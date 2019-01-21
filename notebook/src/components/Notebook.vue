@@ -5,9 +5,7 @@
 </template>
 
 <script>
-  import 'iview/dist/styles/fonts/ionicons.svg'
-  import 'iview/dist/styles/fonts/ionicons.ttf'
-  import 'iview/dist/styles/fonts/ionicons.woff'
+
   import 'codemirror/lib/codemirror.css'
   import 'codemirror/addon/display/fullscreen.css'
   import 'codemirror/theme/night.css'
