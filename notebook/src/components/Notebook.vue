@@ -23,17 +23,27 @@
         "fullScreen": true
       });
       let instance = axios.create({
-        baseURL: 'https://api.xia-fei.com',
+        // baseURL: 'https://api.xia-fei.com',
+        baseURL: 'http://localhost:8090',
         timeout: 1000,
       });
       let key = this.$route.params.note || 'node';
       instance.get('/map?key=' + key).then(res => {
         let text = res.data;
         edit.setValue(text + '');
+
+        edit.on('change', function (event) {
+          instance({
+            method: 'post',
+            url: '/map?key=' + key,
+            headers: {
+              "Content-Type": "application/json;"
+            },
+            data: edit.getValue()
+          })
+        });
       });
-      edit.on('change', function (event) {
-        instance.post('/map?key=' + key + '&value=' + encodeURIComponent(edit.getValue()));
-      });
+
 
     }
   }
