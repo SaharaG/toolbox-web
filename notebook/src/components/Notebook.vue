@@ -26,12 +26,13 @@
         baseURL: 'https://api.xia-fei.com',
         timeout: 1000,
       });
-      instance.get('/map?key=note').then(res => {
+      let key = this.$route.params.note || 'node';
+      instance.get('/map?key=' + key).then(res => {
         let text = res.data;
         edit.setValue(text + '');
       });
       edit.on('change', function (event) {
-        instance.post('/map?key=note&value=' + edit.getValue());
+        instance.post('/map?key=' + key + '&value=' + encodeURIComponent(edit.getValue()));
       });
 
     }

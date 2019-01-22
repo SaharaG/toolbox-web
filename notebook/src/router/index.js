@@ -6,7 +6,7 @@ import Notebook from '@/components/Notebook'
 Vue.use(Router)
 
 export default new Router({
-  mode:'history',
+  mode: 'history',
   routes: [
     {
       path: '/hello',
@@ -15,6 +15,11 @@ export default new Router({
     },
     {
       path: '/',
+      name: 'Notebook',
+      component: Notebook
+    },
+    {
+      path: '/:note',
       name: 'Notebook',
       component: Notebook
     }
