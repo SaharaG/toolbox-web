@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SQL解析工具</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="log转sql,sql转java,mybatis日志转sql,解析mybatis log,sql建表语句转java对象,ddl转java," />
+    <meta name="keyword" content="mybatis,sql转java,mybatis日志解析,sql解析" />
+    <link href="index.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div style="width: 550px ;margin: 20px auto; text-align: center">
+    <div class="button-div" style="margin-top: 50px">
+        <button onclick="bt1()">示例:MybatisLog</button>
+        <button onclick="bt2()" style="margin-left:50px">示例:SQL建表语句</button>
+    </div>
+    <textarea spellcheck="false" id="inputText" style="margin-top: 50px ;width: 540px ;height: 200px"
+              placeholder="请输入要转换的内容"></textarea>
+</div>
+<div id="copyBt" style=" width:540px;margin:0 auto;text-align: right;">
+    <button id="clipboard" alt="ss" class="btn" data-clipboard-text="">
+        复制
+    </button>
+</div>
+
+<pre id="result" style="width: 25%;margin: 0 auto;">
+
+</pre>
+
+<script src="main.js"></script>
+<script>
+    new ClipboardJS('.btn');
+    const inputTextEle = document.getElementById('inputText');
+    const resultPreEle = document.getElementById('result');
+
+    inputTextEle.oninput = function () {
+        transfrom();
+    };
+
+    function transfrom() {
+        let inputText = inputTextEle.value;
+        let resultHighlightText;
+        let resultText;
+        if (sqlDDL.check(inputText)) {
+            resultHighlightText = sqlDDL.transformHighlight(inputText);
+            resultText = sqlDDL.transform(inputText);
+            document.getElementById('clipboard').setAttribute('data-clipboard-text', sqlDDL.transform(inputText))
+        } else {
+            resultHighlightText = mybatis.transformHighlight(inputText);
+            resultText = mybatis.transform(inputText)
+        }
+        if (resultText) {
+            resultPreEle.innerHTML = resultHighlightText;
+            const clipboardEle=document.getElementById('clipboard');
+            clipboardEle.setAttribute('data-clipboard-text', resultText);
+            clipboardEle.style.backgroundColor='#19be6b'
+        }
+    }
+
+
+    function bt1() {
+        changeContext(`2018-07-20 17:32:00.544 superapiplus:WYKlypR6JN1tZndzTMI0yAde416673 DEBUG batchInsert -
+				==>  Preparing: insert into sh_push_code (id, user_id, open_id, form_id, form_id_status, generate_time, create_time, update_time, create_person, update_person) values (?, ?, ?, ?, ?, ?, now(), now(), 'system', 'system')
+2018-07-20 17:32:00.544 superapiplus:WYKlypR6JN1tZndzTMI0yAde416673 DEBUG batchInsert -
+				==> Parameters: null, 122527041(Long), ouMUI0fPepwDr7YFVvtbONMi_nRk(String), 1532079119360(String), 1(Integer), 2018-07-20 17:32:00.543(Timestamp)
+2018-07-20 17:32:00.545 superapiplus:WYKlypR6JN1tZndzTMI0yAde416673 DEBUG batchInsert -
+				<==    Updates: 1
+2018-07-20 17:32:00.723 sh:6IQwHsHvIHcrOvL3inZFNQde72201 DEBUG selectRolesByStoreId -
+				==>  Preparing: select id, store_id, role_code, app_template_id, create_person, create_time, update_person, update_time from sh_role_store where store_id = ?
+2018-07-20 17:32:00.724 sh:6IQwHsHvIHcrOvL3inZFNQde72201 DEBUG selectRolesByStoreId -
+				==> Parameters: 1617818(Integer)
+`);
+
+    }
+
+    function bt2() {
+        changeContext(`CREATE TABLE \`d_app_info\` (
+    \`id\` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    \`corp_id\` varchar(40) NOT NULL COMMENT '公司ID',
+    \`app_type\` int(2) NOT NULL DEFAULT '1' COMMENT '应用类型 1:E应用；2:微应用；3:对接app应用',
+    \`app_name\` varchar(10) DEFAULT NULL COMMENT '应用名称',
+    \`app_logo\` varchar(255) DEFAULT NULL,
+    \`suite_id\` int(11) NOT NULL COMMENT '应用Id',
+    \`suite_key\` varchar(24) NOT NULL COMMENT '应用Key',
+    \`suite_secret\` varchar(70) NOT NULL COMMENT '应用密钥',
+    \`token\` varchar(32) NOT NULL,
+    \`suite_ticket\` varchar(100) DEFAULT NULL COMMENT '推送的票据值',
+    \`aes_key\` varchar(43) NOT NULL,
+    \`create_person\` varchar(20) DEFAULT 'system' COMMENT '创建人',
+    \`create_time\` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    \`update_person\` varchar(20) DEFAULT 'system' COMMENT '更新人',
+    \`update_time\` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    \`ticket_update_time\` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'suite_ticket 修改时间',
+    \`corp_secret\` varchar(64) NOT NULL COMMENT '企业sercet',
+    PRIMARY KEY (\`id\`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='钉钉应用信息';
+`);
+
+    }
+
+    function changeContext(inputText) {
+        inputTextEle.value = inputText;
+        transfrom();
+    }
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?13f02310ca9dd9767d91fc9871e30f21";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</body>
+</html>

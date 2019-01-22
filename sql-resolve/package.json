@@ -1,0 +1,29 @@
+{
+  "name": "xiafei-npm",
+  "version": "1.0.1",
+  "description": "\"# Fast-web\"",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npx webpack --mode=production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xia-fei/Fast-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xia-fei/Fast-web/issues"
+  },
+  "homepage": "https://github.com/xia-fei/Fast-web#readme",
+  "devDependencies": {
+    "sql-formatter": "^2.3.2",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "clipboard": "^2.0.1"
+  }
+}
