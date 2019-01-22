@@ -23,8 +23,8 @@
         "fullScreen": true
       });
       let instance = axios.create({
-        // baseURL: 'https://api.xia-fei.com',
-        baseURL: 'http://localhost:8090',
+        baseURL: 'https://api.xia-fei.com',
+        // baseURL: 'http://localhost:8090',
         timeout: 1000,
       });
       let key = this.$route.params.note || 'node';
