@@ -25,6 +25,7 @@
       let instance = axios.create({
         baseURL: 'https://api.xia-fei.com',
         // baseURL: 'http://localhost:8090',
+        timeout: 20000,
       });
       let key = this.$route.params.note || 'node';
       instance.get('/map?key=' + key).then(res => {
